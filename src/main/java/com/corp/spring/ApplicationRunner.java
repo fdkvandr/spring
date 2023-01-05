@@ -7,9 +7,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ApplicationRunner {
 
     public static void main(String[] args) {
-        var context = new ClassPathXmlApplicationContext("application.xml");
-        var connectionPool = context.getBean("p1", ConnectionPool.class);
-        var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
-        System.out.println(connectionPool);
+        try (var context = new ClassPathXmlApplicationContext("application.xml")) {
+
+            var connectionPool = context.getBean("p1", ConnectionPool.class);
+            var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
+            System.out.println(connectionPool);
+        }
     }
 }

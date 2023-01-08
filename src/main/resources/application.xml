@@ -8,6 +8,7 @@
        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
     <context:property-placeholder location="application.properties"/>
+    <context:annotation-config/>
 
     <bean class="com.corp.spring.bfpp.LogBeanFactoryPostprocessor"/>
     <bean class="com.corp.spring.bfpp.VerifyPropertyBeanFactoryPostprocessor"/>
@@ -16,9 +17,7 @@
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
 
-    <bean id="pool1" name="p1" class="com.corp.spring.database.pool.ConnectionPool"
-          init-method="init"
-          destroy-method="destroy">
+    <bean id="pool1" name="p1" class="com.corp.spring.database.pool.ConnectionPool">
         <constructor-arg name="poolSize" type="java.lang.Integer" value="${db.pool.size}"/>
         <constructor-arg name="username" type="java.lang.String" value="${db.username}"/>
         <constructor-arg name="properties" type="java.util.Map">

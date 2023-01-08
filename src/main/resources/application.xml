@@ -10,6 +10,8 @@
     <context:property-placeholder location="application.properties"/>
     <context:annotation-config/>
 
+    <bean class="com.corp.spring.bpp.InjectBeanPostProcessor"/>
+
     <bean class="com.corp.spring.bfpp.LogBeanFactoryPostprocessor"/>
     <bean class="com.corp.spring.bfpp.VerifyPropertyBeanFactoryPostprocessor"/>
 
@@ -44,7 +46,5 @@
         </property>
     </bean>
 
-    <bean id="companyRepository" class="com.corp.spring.database.repository.CompanyRepository" factory-method="of">
-        <constructor-arg ref="pool1"/>
-    </bean>
+    <bean id="companyRepository" class="com.corp.spring.database.repository.CompanyRepository"/>
 </beans>

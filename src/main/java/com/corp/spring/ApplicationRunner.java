@@ -11,7 +11,7 @@ public class ApplicationRunner {
 
             var connectionPool = context.getBean("p1", ConnectionPool.class);
             var companyRepository = context.getBean("companyRepository", CompanyRepository.class);
-            System.out.println(connectionPool);
+            System.out.println(companyRepository);
         }
     }
 }

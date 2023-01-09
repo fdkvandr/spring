@@ -1,20 +1,24 @@
 package com.corp.spring.database.repository;
 
 import com.corp.spring.bpp.Auditing;
-import com.corp.spring.bpp.InjectBean;
 import com.corp.spring.bpp.Transaction;
 import com.corp.spring.database.pool.ConnectionPool;
 import com.corp.spring.entity.Company;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 import java.util.Optional;
 
 @Transaction
 @Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
 
-    @InjectBean
-    private ConnectionPool connectionPool;
+    @Autowired
+    private ConnectionPool pool1;
+
+    @Autowired
+    private List<ConnectionPool> pools;
 
     @PostConstruct
     private void init() {

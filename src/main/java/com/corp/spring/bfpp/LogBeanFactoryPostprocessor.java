@@ -6,9 +6,11 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.core.Ordered;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class LogBeanFactoryPostprocessor implements BeanFactoryPostProcessor, Ordered {
 
     @Override
@@ -17,7 +19,7 @@ public class LogBeanFactoryPostprocessor implements BeanFactoryPostProcessor, Or
             BeanDefinition beanDefinition = beanFactory.getBeanDefinition(beanDefinitionName);
             List<ConstructorArgumentValues.ValueHolder> genericArgumentValues = beanDefinition.getConstructorArgumentValues()
                     .getGenericArgumentValues();
-            for (ConstructorArgumentValues.ValueHolder genericArgumentValue: genericArgumentValues){
+            for (ConstructorArgumentValues.ValueHolder genericArgumentValue : genericArgumentValues) {
                 // TODO 31.12.2022 set get. Здесь можно подкручитьвать сами Bean Definitions, т.к. есть доступ к BeanFactory
             }
         }

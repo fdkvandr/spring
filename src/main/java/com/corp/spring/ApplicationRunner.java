@@ -1,13 +1,14 @@
 package com.corp.spring;
 
+import com.corp.spring.config.ApplicationConfiguration;
 import com.corp.spring.database.pool.ConnectionPool;
 import com.corp.spring.database.repository.CrudRepository;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class ApplicationRunner {
 
     public static void main(String[] args) {
-        try (var context = new ClassPathXmlApplicationContext("application.xml")) {
+        try (var context = new AnnotationConfigApplicationContext(ApplicationConfiguration.class)) {
 
             var connectionPool = context.getBean("pool1", ConnectionPool.class);
             var companyRepository = context.getBean("companyRepository", CrudRepository.class);

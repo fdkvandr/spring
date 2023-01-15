@@ -10,7 +10,6 @@ import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Component;
 
-@ImportResource("classpath:application.xml")
 @Import(WebConfiguration.class)
 @Configuration
 @PropertySource("classpath:application.properties")

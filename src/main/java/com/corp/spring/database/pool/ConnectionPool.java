@@ -9,7 +9,9 @@ import jakarta.annotation.PreDestroy;
 @Component("pool1")
 public class ConnectionPool {
 
+    @Value("${db.username}")
     private final String username;
+    @Value("${db.pool.size}")
     private final Integer poolSize;
 
     public ConnectionPool(@Value("${db.username}") String username, @Value("${db.pool.size}") Integer poolSize) {

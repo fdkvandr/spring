@@ -2,7 +2,7 @@ package com.corp.spring;
 
 import com.corp.spring.config.ApplicationConfiguration;
 import com.corp.spring.database.pool.ConnectionPool;
-import com.corp.spring.database.repository.CrudRepository;
+import com.corp.spring.service.CompanyService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class ApplicationRunner {
@@ -13,8 +13,8 @@ public class ApplicationRunner {
             context.getEnvironment().setActiveProfiles("prod", "web");
             context.refresh();
             var connectionPool = context.getBean("pool1", ConnectionPool.class);
-            var companyRepository = context.getBean("companyRepository", CrudRepository.class);
-            System.out.println(companyRepository.findById(1));
+            var companyService = context.getBean(CompanyService.class);
+            System.out.println(companyService.findById(1));
         }
     }
 }

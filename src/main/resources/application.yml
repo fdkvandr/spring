@@ -4,6 +4,10 @@ db:
   pool:
     size: 12
     timeout: 10
+  properties:
+    first: 123
+    second: 567
+    third.value: Third
   pools:
     - size: 1
       timeout: 1

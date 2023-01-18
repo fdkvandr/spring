@@ -21,6 +21,9 @@ db:
 spring.profiles.active: qa
 
 logging:
+  file:
+    name: project.log
+    path: /
   level:
-    root: WARN
+    root: OFF
     com.corp.spring.database.pool.ConnectionPool: INFO

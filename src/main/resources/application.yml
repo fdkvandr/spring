@@ -19,3 +19,8 @@ db:
   url: postgres:5432
   hosts: localhost,127.0.0.1
 spring.profiles.active: qa
+
+logging:
+  level:
+    root: WARN
+    com.corp.spring.database.pool.ConnectionPool: INFO

@@ -2,11 +2,13 @@ package com.corp.spring.config;
 
 import com.corp.spring.config.condition.JpaCondition;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 @Conditional(JpaCondition.class)
 @Configuration
+@Slf4j
 public class JpaConfiguration {
 
     // @Bean
@@ -17,6 +19,6 @@ public class JpaConfiguration {
 
     @PostConstruct
     void init() {
-        System.out.println("Jpa configuration is enabled");
+        log.info("Jpa configuration is enabled");
     }
 }

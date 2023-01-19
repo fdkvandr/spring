@@ -1,21 +1,23 @@
 package com.corp.spring.integration.service;
 
+import com.corp.spring.config.DatabaseProperties;
 import com.corp.spring.dto.CompanyReadDto;
+import com.corp.spring.integration.annotation.IT;
 import com.corp.spring.service.CompanyService;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringBootTest
+@IT
+@RequiredArgsConstructor
 public class CompanyServiceIT {
 
     private static final Integer COMPANY_ID = 1;
 
-    @Autowired
-    private CompanyService companyService;
+    private final CompanyService companyService;
+    private final DatabaseProperties databaseProperties;
 
     @Test
     void findById() {

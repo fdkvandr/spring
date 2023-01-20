@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Transaction
-@Auditing
 @Repository
 @RequiredArgsConstructor
 @Slf4j

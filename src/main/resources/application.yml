@@ -26,3 +26,15 @@ logging:
 #    path: /
   level:
     root: INFO
+
+spring:
+  datasource:
+    url: jdbc:postgresql://109.94.7.254:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true

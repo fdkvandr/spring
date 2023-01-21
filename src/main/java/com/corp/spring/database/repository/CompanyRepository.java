@@ -1,7 +1,5 @@
 package com.corp.spring.database.repository;
 
-import com.corp.spring.bpp.Auditing;
-import com.corp.spring.bpp.Transaction;
 import com.corp.spring.database.entity.Company;
 import com.corp.spring.database.pool.ConnectionPool;
 import jakarta.annotation.PostConstruct;
@@ -10,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +31,7 @@ public class CompanyRepository implements CrudRepository<Integer, Company> {
     @Override
     public Optional<Company> findById(Integer id) {
         log.info("findById method...");
-        return Optional.of(new Company(id));
+        return Optional.of(new Company(id, null, Collections.emptyMap()));
     }
 
     @Override

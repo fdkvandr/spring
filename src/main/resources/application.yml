@@ -21,20 +21,20 @@ db:
 spring.profiles.active: qa
 
 logging:
-#  file:
-#    name: project.log
-#    path: /
+  #  file:
+  #    name: project.log
+  #    path: /
   level:
     root: INFO
 
 spring:
   datasource:
-    url: jdbc:postgresql://109.94.7.254:5432/postgres
+    url: jdbc:postgresql://109.94.7.254:5432/spring_database
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
+    properties.hibernate:
+      show_sql: true
+      format_sql: true
+      hbm2ddl.auto: validate

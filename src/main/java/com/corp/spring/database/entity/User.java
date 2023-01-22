@@ -1,15 +1,14 @@
 package com.corp.spring.database.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString(exclude = "userChats")
+@EqualsAndHashCode(of = "username")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

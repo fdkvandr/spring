@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 import java.util.HashMap;
 import java.util.Map;
 
+@NamedQuery(
+        name = "Company.findByName",
+        query = "SELECT c FROM Company c WHERE LOWER(c.name) = LOWER(:name2)"
+)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -8,11 +8,13 @@ import com.corp.spring.listener.EntityEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CompanyService {
 
     private final CrudRepository<Integer, Company> companyCrudRepository;

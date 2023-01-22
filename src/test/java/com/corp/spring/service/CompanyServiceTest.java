@@ -1,7 +1,7 @@
 package com.corp.spring.service;
 
 import com.corp.spring.database.entity.Company;
-import com.corp.spring.database.repository.CrudRepository;
+import com.corp.spring.database.repository.CompanyRepository;
 import com.corp.spring.dto.CompanyReadDto;
 import com.corp.spring.listener.EntityEvent;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class CompanyServiceTest {
     private static final Integer COMPANY_ID = 1;
 
     @Mock
-    private CrudRepository<Integer, Company> companyCrudRepository;
+    private CompanyRepository companyRepository;
     @Mock
     private UserService userService;
     @Mock
@@ -34,7 +34,7 @@ class CompanyServiceTest {
 
     @Test
     void findById() {
-        doReturn(Optional.of(new Company(COMPANY_ID, null, Collections.emptyMap()))).when(companyCrudRepository)
+        doReturn(Optional.of(new Company(COMPANY_ID, null, Collections.emptyMap()))).when(companyRepository)
                 .findById(COMPANY_ID);
 
         var actualResult = companyService.findById(COMPANY_ID);

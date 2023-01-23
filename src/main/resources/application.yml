@@ -29,7 +29,7 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://109.94.7.254:5432/spring_database
+    url: jdbc:postgresql://109.94.12.103:5432/spring_database
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

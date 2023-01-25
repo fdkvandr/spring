@@ -2,13 +2,12 @@ package com.corp.spring.database.repository;
 
 import com.corp.spring.database.entity.Role;
 import com.corp.spring.database.entity.User;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,6 +32,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findFirstByOrderByIdDesc();
 
+    @QueryHints(@QueryHint(name = "org.hibernate.fetchSize", value = "50"))
+    @Lock(LockModeType.PESSIMISTIC_READ)
     List<User> findFirst3ByBirthDateBefore(LocalDate birtdhDate, Sort sort);
 
     @EntityGraph(attributePaths = {"company"})

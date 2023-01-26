@@ -19,6 +19,11 @@ class UserRepositoryIT {
 
     private final UserRepository userRepository;
 
+    @Test
+    void checkProjections() {
+        var users = userRepository.findAllByCompanyId(1);
+        assertThat(users).hasSize(2);
+    }
 
     @Test
     void checkPageable() {

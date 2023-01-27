@@ -23,6 +23,14 @@ class UserRepositoryIT {
     private final UserRepository userRepository;
 
     @Test
+    void checkAuditing() {
+        var user = userRepository.findById(1L).get();
+        user.setBirthDate(user.getBirthDate().plusYears(1));
+        userRepository.flush();
+        System.out.println();
+    }
+
+    @Test
     void checkCustomImplementation() {
         var filter = new UserFilter(null, "%ov%", LocalDate.now());
         var allByFilter = userRepository.findAllByFilter(filter);

@@ -26,6 +26,7 @@ logging:
   #    path: /
   level:
     root: INFO
+    org.springframework.jdbc.core: TRACE
 
 spring:
   datasource:

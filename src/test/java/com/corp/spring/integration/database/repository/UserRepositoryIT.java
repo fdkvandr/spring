@@ -3,6 +3,7 @@ package com.corp.spring.integration.database.repository;
 import com.corp.spring.database.entity.Role;
 import com.corp.spring.database.entity.User;
 import com.corp.spring.database.repository.UserRepository;
+import com.corp.spring.dto.PersonalInfo;
 import com.corp.spring.dto.UserFilter;
 import com.corp.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,6 +24,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserRepositoryIT {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkJdbcTemplate() {
+        List<PersonalInfo> users = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
+        assertThat(users).hasSize(1);
+        System.out.println(users);
+    }
 
     @Test
     @Commit

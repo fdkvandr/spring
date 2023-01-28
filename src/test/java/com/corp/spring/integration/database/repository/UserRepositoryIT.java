@@ -5,13 +5,11 @@ import com.corp.spring.database.entity.User;
 import com.corp.spring.database.repository.UserRepository;
 import com.corp.spring.dto.PersonalInfo;
 import com.corp.spring.dto.UserFilter;
-import com.corp.spring.integration.annotation.IT;
+import com.corp.spring.integration.IntegrationTestBase;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.Commit;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,10 +18,8 @@ import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@IT
-@Sql("classpath:sql/data.sql")
 @RequiredArgsConstructor
-class UserRepositoryIT {
+class UserRepositoryIT extends IntegrationTestBase {
 
     private final UserRepository userRepository;
 
@@ -41,7 +37,7 @@ class UserRepositoryIT {
     }
 
     @Test
-    @Commit
+    // @Commit
     void checkAuditing() {
         var user = userRepository.findById(1L).get();
         user.setBirthDate(user.getBirthDate().plusYears(1));

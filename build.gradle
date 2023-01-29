@@ -27,6 +27,7 @@ dependencies {
     implementation "com.querydsl:querydsl-jpa:${versions.querydsl}"
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
     annotationProcessor "com.querydsl:querydsl-apt:${versions.querydsl}"
     annotationProcessor 'jakarta.persistence:jakarta.persistence-api'

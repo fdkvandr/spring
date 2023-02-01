@@ -1,23 +1,30 @@
 package com.corp.spring.http.controller;
 
+import com.corp.spring.database.entity.Role;
 import com.corp.spring.dto.UserReadDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequestMapping("api/v1")
 @SessionAttributes({"user"}) // Устанавливаем этот ключ в SessionScope
 public class GreetingController {
 
+    @ModelAttribute("roles")
+    public List<Role> roles() {
+        return Arrays.asList(Role.values());
+    }
+
     @GetMapping("/hello")
-    public ModelAndView hello(ModelAndView modelAndView, HttpServletRequest request) {
-        request.getSession().setAttribute("ivan", new UserReadDto(1L, "Ivan")); // Так мы делали раньше в SessionScope через объект сессии
-        modelAndView.setViewName("greeting/hello");
-        modelAndView.addObject("user", new UserReadDto(1L, "Ivan")); // Так делаем сейчас
-        return modelAndView;
+    public String hello(Model model, @ModelAttribute("user1") UserReadDto userReadDto) {
+        return "greeting/hello";
     }
 
     @GetMapping("/hello/{id}")
@@ -35,9 +42,7 @@ public class GreetingController {
     }
 
     @GetMapping("/by")
-    public ModelAndView bye(@SessionAttribute("user") UserReadDto user, ModelAndView modelAndView) {
-        // request.getSession().getAttribute("user")
-        modelAndView.setViewName("greeting/bye");
-        return modelAndView;
+    public String bye(@SessionAttribute("user") UserReadDto userReadDto, Model model) {
+        return "greeting/bye";
     }
 }

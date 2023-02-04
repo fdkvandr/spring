@@ -3,47 +3,58 @@ package com.corp.spring.http.controller;
 import com.corp.spring.dto.UserCreateEditDto;
 import com.corp.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Controller
-@RequestMapping("/users") // Укажем общий для всех путь
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService; // Заинжектим сервис чтобы получать инфу с него
+    private final UserService userService;
 
-    @GetMapping // По умолчанию, будем ходить на /users
-    public String findAll(Model model) { // Инжектаем модель, чтобы установить туда аттрибут для рендеринга JSP
-        // model.addAttribute("users", userService.findAll());
-        // model.addAttribute("users", userService.findAll(filter));
+    @GetMapping
+    public String findAll(Model model) {
+        model.addAttribute("users", userService.findAll());
+        // TODO model.addAttribute("users", userService.findAll(filter));
         return "user/users";
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id, Model model) {
-        // model.getAttribute("user", userService.findById(id));
-        return "user/user";
+        return userService.findById(id)
+                .map(user -> {
+                    model.addAttribute("user", user);
+                    return "user/user";
+                })
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
     }
 
-    @PostMapping// Создание сущности тоже по тому же пути /users
-    public String create(UserCreateEditDto user) { // Тут неявно используется @ModelAttribute
-        // userService.create(user); // Получим новосозданный айдишник
-        return "redirect:/users/" + 25; // Тут потом сделаем на редирект странички с пользователем. Добавить айдишник
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public String create(UserCreateEditDto user) {
+        return "redirect:/users/" + userService.create(user).getId();
     }
 
-    // @PutMapping("/{id}") // Обновление сущности
-    @PostMapping("/{id}/update") // Временно сделаем @PostMapping пока не прошли @ResponseBody
+    // TODO @PutMapping("/{id}")
+    @PostMapping("/{id}/update")
     public String update(@PathVariable("id") Long id, UserCreateEditDto user) {
-        // userService.update(id, user);
-        return "redirect:/users/{id}"; // Spring хранит все эти @PathVariable в отдельной Map который мы потом также можем вставлять в return. Но тут есть два момента. Первое чт омы можем по этому айди не найти сущность. А второе - это то что мы не можем отправлять из нашей формы from PUT запрос. К сожалению, т.к. мы не используем JS, то мы можем использовать либо GET, либо POST.
+        return userService.update(id, user)
+                .map(it -> "redirect:/users/{id}")
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
     }
 
-    // @DeleteMapping("/{id}")
-    @PostMapping("/{id}/delete") // Временно сделаем @PostMapping пока не прошли @ResponseBody
+    // TODO @DeleteMapping("/{id}")
+    @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id) {
-        // userService.delete(id);
+        if (!userService.delete(id)) {
+            throw new ResponseStatusException(NOT_FOUND);
+        }
         return "redirect:/users";
     }
 }

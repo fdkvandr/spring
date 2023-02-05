@@ -33,6 +33,8 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+    format:
+      date: iso
   datasource:
     url: jdbc:postgresql://46.249.26.35:5432/spring_database
     username: postgres

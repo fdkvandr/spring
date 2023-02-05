@@ -23,7 +23,8 @@ public class GreetingController {
     }
 
     @GetMapping("/hello")
-    public String hello(Model model, @ModelAttribute("user1") UserReadDto userReadDto) {
+    public String hello(Model model, @ModelAttribute("userReadDto") UserReadDto userReadDto) {
+        model.addAttribute("user", userReadDto);
         return "greeting/hello";
     }
 
@@ -41,7 +42,7 @@ public class GreetingController {
         return modelAndView;
     }
 
-    @GetMapping("/by")
+    @GetMapping("/bye")
     public String bye(@SessionAttribute("user") UserReadDto userReadDto, Model model) {
         return "greeting/bye";
     }

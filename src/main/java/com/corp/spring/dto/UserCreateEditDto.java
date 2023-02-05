@@ -2,10 +2,12 @@ package com.corp.spring.dto;
 
 import com.corp.spring.database.entity.Role;
 import lombok.Value;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDate;
 
 @Value
+@FieldNameConstants
 public class UserCreateEditDto {
 
     String username;

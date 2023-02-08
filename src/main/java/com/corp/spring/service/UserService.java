@@ -1,17 +1,23 @@
 package com.corp.spring.service;
 
+import com.corp.spring.database.querydsl.QPredicates;
 import com.corp.spring.database.repository.UserRepository;
 import com.corp.spring.dto.UserCreateEditDto;
 import com.corp.spring.dto.UserFilter;
 import com.corp.spring.dto.UserReadDto;
 import com.corp.spring.mapper.UserCreateEditMapper;
 import com.corp.spring.mapper.UserReadMapper;
+import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.corp.spring.database.entity.QUser.user;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +33,14 @@ public class UserService {
                 .map(userReadMapper::map).toList();
     }
 
-    public List<UserReadDto> findAll(UserFilter filter) {
-        return userRepository.findAllByFilter(filter).stream()
-                .map(userReadMapper::map).toList();
+    public Page<UserReadDto> findAll(UserFilter filter, Pageable pageable) {
+        Predicate predicate = QPredicates.builder()
+                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+                .add(filter.lastname(), user.lastname::containsIgnoreCase)
+                .add(filter.birthDate(), user.birthDate::before)
+                .build();
+        return userRepository.findAll(predicate, pageable)
+                .map(userReadMapper::map);
     }
 
     public Optional<UserReadDto> findById(Long id) {

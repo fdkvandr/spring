@@ -7,8 +7,10 @@ import com.corp.spring.dto.UserFilter;
 import com.corp.spring.dto.UserReadDto;
 import com.corp.spring.service.CompanyService;
 import com.corp.spring.service.UserService;
-import jakarta.validation.Valid;
+import com.corp.spring.validation.group.CreateAction;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -59,7 +62,7 @@ public class UserController {
 
     @PostMapping
     // @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute @Validated UserCreateEditDto user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("user", user);
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
@@ -70,7 +73,7 @@ public class UserController {
 
     // TODO @PutMapping("/{id}")
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") Long id, @Valid UserCreateEditDto user) {
+    public String update(@PathVariable("id") Long id, @Validated UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(it -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));

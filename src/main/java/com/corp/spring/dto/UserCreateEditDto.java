@@ -1,6 +1,9 @@
 package com.corp.spring.dto;
 
 import com.corp.spring.database.entity.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Value;
 import lombok.experimental.FieldNameConstants;
 
@@ -10,11 +13,19 @@ import java.time.LocalDate;
 @FieldNameConstants
 public class UserCreateEditDto {
 
+    @Email
     String username;
-    // @DateTimeFormat(pattern = "MM-dd-yyyy")
+
     LocalDate birthDate;
+
+    @NotNull
+    @Size(min = 3, max = 64)
     String firstname;
+
+    @NotNull
     String lastname;
+
     Role role;
-    Integer companyId; // Нам достаточно только айдишника компании чтобы создать пользователя. Вся сущность компании не нужна
+
+    Integer companyId;
 }

@@ -38,6 +38,12 @@ public class UserRestController {
                 .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
     }
 
+    @GetMapping("/{id}/avatar")
+    public byte[] findAvatar(@PathVariable("id") Long id) {
+        return userService.findAvatar(id)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserReadDto create(@Validated({Default.class, CreateAction.class}) @RequestBody UserCreateEditDto user) {

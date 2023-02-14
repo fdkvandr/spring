@@ -36,7 +36,7 @@ spring:
     format:
       date: iso
   datasource:
-    url: jdbc:postgresql://100.73.17.130:5432/spring_database
+    url: jdbc:postgresql://46.249.19.112:5432/spring_database
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

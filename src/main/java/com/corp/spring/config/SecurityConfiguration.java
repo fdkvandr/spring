@@ -16,6 +16,10 @@ public class SecurityConfiguration {
                 .csrf().disable() // Отсключим csrf, потому что его нужно конфигурировать на наших страничках отдельно, поэтому об этом дальше
                 .authorizeHttpRequests().anyRequest().authenticated() // Только пользователи, которые прошли аутентификацию могут делать любые запросы по нашему приложению
                 .and()
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login")
+                        .deleteCookies("JSESSIONID"))
                 // .httpBasic(Customizer.withDefaults());
                 .formLogin(login -> login // Тут мы настраиваем нашу страничку логина
                         .loginPage("/login") // Говорим, что она находится на url /login - это как раз наш @GetMapping /login контроллер, который перенаправит нас на нашу VIEW

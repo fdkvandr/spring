@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.springframework.data:spring-data-envers'
     implementation "com.querydsl:querydsl-jpa:${versions.querydsl}"
     implementation 'org.liquibase:liquibase-core'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'

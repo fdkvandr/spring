@@ -1,11 +1,15 @@
 package com.corp.spring.integration.service;
 
+import com.corp.spring.database.entity.Role;
+import com.corp.spring.dto.UserCreateEditDto;
 import com.corp.spring.dto.UserReadDto;
 import com.corp.spring.integration.IntegrationTestBase;
 import com.corp.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,48 +36,52 @@ public class UserServiceIT extends IntegrationTestBase {
         mayBeUser.ifPresent(user -> assertEquals("ivan@gmail.com", user.getUsername()));
     }
 
-    // @Test
-    // void create() {
-    //     UserCreateEditDto userDto = new UserCreateEditDto(
-    //             "test@gmail.com",
-    //             LocalDate.now(),
-    //             "Test",
-    //             "Test",
-    //             Role.ADMIN,
-    //             COMPANY_1
-    //     );
-    //     UserReadDto actualResult = userService.create(userDto);
-    //
-    //     assertEquals(userDto.getUsername(), actualResult.getUsername());
-    //     assertEquals(userDto.getBirthDate(), actualResult.getBirthDate());
-    //     assertEquals(userDto.getFirstname(), actualResult.getFirstname());
-    //     assertEquals(userDto.getLastname(), actualResult.getLastname());
-    //     assertEquals(userDto.getCompanyId(), actualResult.getCompany().id());
-    //     assertSame(userDto.getRole(), actualResult.getRole());
-    // }
-    // //
-    // // @Test
-    // // void update() {
-    // //     UserCreateEditDto userDto = new UserCreateEditDto(
-    // //             "test@gmail.com",
-    // //             LocalDate.now(),
-    // //             "Test",
-    // //             "Test",
-    // //             Role.ADMIN,
-    // //             COMPANY_1
-    // //     );
-    // //     Optional<UserReadDto> actualResult = userService.update(USER_1, userDto);
-    // //     assertTrue(actualResult.isPresent());
-    // //
-    // //     actualResult.ifPresent(user -> {
-    // //         assertEquals(userDto.getUsername(), user.getUsername());
-    // //         assertEquals(userDto.getBirthDate(), user.getBirthDate());
-    // //         assertEquals(userDto.getFirstname(), user.getFirstname());
-    // //         assertEquals(userDto.getLastname(), user.getLastname());
-    // //         assertEquals(userDto.getCompanyId(), user.getCompany().id());
-    // //         assertSame(userDto.getRole(), user.getRole());
-    // //     });
-    // // }
+    @Test
+    void create() {
+        UserCreateEditDto userDto = new UserCreateEditDto(
+                "test@gmail.com",
+                "test",
+                LocalDate.now(),
+                "Test",
+                "Test",
+                Role.ADMIN,
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
+        );
+        UserReadDto actualResult = userService.create(userDto);
+
+        assertEquals(userDto.getUsername(), actualResult.getUsername());
+        assertEquals(userDto.getBirthDate(), actualResult.getBirthDate());
+        assertEquals(userDto.getFirstname(), actualResult.getFirstname());
+        assertEquals(userDto.getLastname(), actualResult.getLastname());
+        assertEquals(userDto.getCompanyId(), actualResult.getCompany().getId());
+        assertSame(userDto.getRole(), actualResult.getRole());
+    }
+
+    @Test
+    void update() {
+        UserCreateEditDto userDto = new UserCreateEditDto(
+                "test@gmail.com",
+                "test",
+                LocalDate.now(),
+                "Test",
+                "Test",
+                Role.ADMIN,
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
+        );
+        Optional<UserReadDto> actualResult = userService.update(USER_1, userDto);
+        assertTrue(actualResult.isPresent());
+
+        actualResult.ifPresent(user -> {
+            assertEquals(userDto.getUsername(), user.getUsername());
+            assertEquals(userDto.getBirthDate(), user.getBirthDate());
+            assertEquals(userDto.getFirstname(), user.getFirstname());
+            assertEquals(userDto.getLastname(), user.getLastname());
+            assertEquals(userDto.getCompanyId(), user.getCompany().getId());
+            assertSame(userDto.getRole(), user.getRole());
+        });
+    }
 
     @Test
     void delete() {

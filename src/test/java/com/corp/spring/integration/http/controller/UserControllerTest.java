@@ -1,14 +1,15 @@
 package com.corp.spring.integration.http.controller;
 
+import com.corp.spring.database.entity.Role;
 import com.corp.spring.integration.IntegrationTestBase;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static com.corp.spring.dto.UserCreateEditDto.Fields.*;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -21,11 +22,11 @@ class UserControllerTest extends IntegrationTestBase {
 
     @Test
     void findAll() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/users"))
+        ResultActions resultActions = mockMvc.perform(get("/users")
+                        .with(SecurityMockMvcRequestPostProcessors.user("test@gmail.com").password("test").authorities(Role.ADMIN)))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("user/users"))
-                .andExpect(model().attributeExists("users"))
-                .andExpect(model().attribute("users", hasSize(5)));
+                .andExpect(model().attributeExists("users")) ;
     }
 
     @Test

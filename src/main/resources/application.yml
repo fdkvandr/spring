@@ -20,6 +20,7 @@ db:
   hosts: localhost,127.0.0.1
 spring.profiles.active: qa
 
+
 logging:
   #  file:
   #    name: project.log
@@ -27,6 +28,11 @@ logging:
   level:
     root: INFO
     org.springframework.jdbc.core: TRACE
+
+ip: 109.94.25.235
+
+server:
+  port: 8081
 
 spring:
   mvc:
@@ -36,7 +42,7 @@ spring:
     format:
       date: iso
   datasource:
-    url: jdbc:postgresql://46.249.28.115:5432/spring_database
+    url: jdbc:postgresql://${ip}/spring_database
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -51,3 +57,25 @@ spring:
     multipart:
       max-request-size: 1000MB
       max-file-size: 1000MB
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: springclient
+            authorization-grant-type: authorization_code
+            client-secret: ZIW2dehQPaUkjvhpoTH2POz36PNyDFzY
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
+#            redirect-uri: http://localhost:8081/login/oauth2/code/keycloak
+            scope:
+              - openid
+              - profile
+              - email
+        provider:
+          keycloak:
+            authorization-uri: http://${ip}:8080/realms/springrealm/protocol/openid-connect/auth
+            token-uri: http://${ip}:8080/realms/springrealm/protocol/openid-connect/token
+            user-info-uri: http://${ip}:8080/realms/springrealm/protocol/openid-connect/userinfo
+            jwk-set-uri: http://${ip}:8080/realms/springrealm/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
+            issuer-uri: http://${ip}:8080/realms/springrealm

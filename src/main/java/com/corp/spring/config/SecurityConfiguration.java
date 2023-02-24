@@ -30,7 +30,10 @@ public class SecurityConfiguration {
                 .formLogin(login -> login
                         .loginPage("/login")
                         .defaultSuccessUrl("/users")
-                        .permitAll());
+                        .permitAll())
+                .oauth2Login(config -> config
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/users"));
         return http.build();
     }
 

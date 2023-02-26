@@ -79,3 +79,13 @@ spring:
             jwk-set-uri: http://${ip}:8080/realms/springrealm/protocol/openid-connect/certs
             user-name-attribute: preferred_username
             issuer-uri: http://${ip}:8080/realms/springrealm
+springdoc:
+  swagger-ui:
+    oauth2-redirect-url: '{baseUrl}/login/oauth2/code/{registrationId}'
+    oauth:
+      client-id: springclient
+      client-secret: ZIW2dehQPaUkjvhpoTH2POz36PNyDFzY
+      scopes:
+        - openid
+        - profile
+        - email

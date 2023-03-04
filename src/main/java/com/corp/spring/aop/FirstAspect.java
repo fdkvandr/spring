@@ -12,27 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class FirstAspect {
 
-    @Pointcut("@within(org.springframework.stereotype.Controller)")
-    public void isControllerLayer() {
-    }
-
-    @Pointcut("within(com.corp.spring.service.*)")
-    public void isServiceLayer() {
-    }
-
     @Pointcut("this(org.springframework.stereotype.Repository)")
     public void isRepositoryLayer() {
     }
 
-    @Pointcut("isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
+    @Pointcut("com.corp.spring.aop.CommonPointcuts.isControllerLayer()ControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
     public void hasGetMapping() {
     }
 
-    @Pointcut("isControllerLayer() && args(org.springframework.ui.Model,..)")
+    @Pointcut("com.corp.spring.aop.CommonPointcuts.isControllerLayer()ControllerLayer() && args(org.springframework.ui.Model,..)")
     public void hasModelParam() {
     }
 
-    @Pointcut("isControllerLayer() && @args(com.corp.spring.validation.UserInfo)")
+    @Pointcut("com.corp.spring.aop.CommonPointcuts.isControllerLayer()ControllerLayer() && @args(com.corp.spring.validation.UserInfo)")
     public void hasUserInfoParamAnnotation() {
     }
 

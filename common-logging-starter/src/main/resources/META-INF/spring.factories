@@ -1,0 +1,2 @@
+#Этот файл теперь не работает
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.corp.logging.config.LoggingAutoConfiguration

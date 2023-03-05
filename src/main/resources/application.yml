@@ -91,3 +91,8 @@ springdoc:
         - openid
         - profile
         - email
+app:
+  common:
+    logging:
+      level: INFO
+      enabled: true
